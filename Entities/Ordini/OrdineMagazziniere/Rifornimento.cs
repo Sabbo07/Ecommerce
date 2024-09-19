@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using Ecommerce.Entities.Utenti;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Ecommerce.Entities.Ordini.OrdineMagazziniere
 {
@@ -14,14 +11,22 @@ namespace Ecommerce.Entities.Ordini.OrdineMagazziniere
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("MagazziniereId")]
         public int MagazziniereId { get; set; }
-        public Magazziniere Magazziniere { get; set; }
-        [ForeignKey("NegozioId")]
+
+        [ForeignKey("MagazziniereId")]
+        public virtual Magazziniere Magazziniere { get; set; }
+
         public int NegozioId { get; set; }
-        public Negozio Negozio { get; set; }
+
+        [ForeignKey("NegozioId")]
+        public virtual Negozio Negozio { get; set; }
 
         public virtual ICollection<DettaglioRifornimento> DettagliRifornimento { get; set; }
 
+        // Constructor to initialize the collection
+        public Rifornimento()
+        {
+            DettagliRifornimento = new HashSet<DettaglioRifornimento>();
+        }
     }
 }

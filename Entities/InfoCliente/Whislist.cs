@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Ecommerce.Entities.Utenti;
@@ -10,12 +9,14 @@ namespace Ecommerce.Entities.InfoUtente
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("ClienteId")]
+
         public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
-        [ForeignKey("ScarpaId")]
         public int ScarpaId { get; set; }
 
+        [ForeignKey("ClienteId")]
+        public virtual Cliente Cliente { get; set; }
+
+        [ForeignKey("ScarpaId")]
         public virtual Scarpa Scarpa { get; set; }
     }
 }
