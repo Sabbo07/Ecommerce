@@ -1,0 +1,27 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace Ecommerce.Entities.InfoScarpe
+{
+    public class Scarpa
+    {
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public int ModelloId { get; set; }
+        [ForeignKey("ModelloId")]
+        public Modello Modello { get; set; }
+        public int BrandId { get; set; }
+        [ForeignKey("BrandId")]
+        public Brand Brand { get; set; }
+
+        public int CategoriaId { get; set; }
+        [ForeignKey("CategoriaId")]
+        public Categoria Categoria { get; set; }
+
+        public int ColoreId { get; set; }
+        [ForeignKey("ColoreId")]
+        public Colore Colore { get; set; }
+        
+
+    }
+}
