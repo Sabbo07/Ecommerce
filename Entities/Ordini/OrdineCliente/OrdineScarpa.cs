@@ -1,9 +1,7 @@
-
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Ecommerce.Entities.InfoScarpe;   
+using Ecommerce.Entities.InfoScarpe;
+
 namespace Ecommerce.Entities.Ordini.OrdineCliente
 {
     public class OrdineScarpa
@@ -11,17 +9,17 @@ namespace Ecommerce.Entities.Ordini.OrdineCliente
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("OrdineId")]
         public int OrdineId { get; set; }
 
-        [ForeignKey("ScarpaId")]
         public int ScarpaId { get; set; }
+
         public int Quantita { get; set; }
 
         // Navigation properties
+        [ForeignKey("OrdineId")]
         public virtual Ordine Ordine { get; set; }
-        public virtual Scarpa Scarpa { get; set; }
 
-        
+        [ForeignKey("ScarpaId")]
+        public virtual Scarpa Scarpa { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+using Ecommerce.Entities.Ordini.OrdineCliente;
 namespace Ecommerce.Entities.Utenti
 {
     public class Cliente
@@ -22,5 +22,14 @@ namespace Ecommerce.Entities.Utenti
         [Required]
         [StringLength(50)]
         public string Indirizzo { get; set; }
+
+        // Collection of Ordini to represent the orders made by the Cliente
+        public virtual ICollection<Ordine> Ordini { get; set; }
+
+        // Constructor to initialize the collection
+        public Cliente()
+        {
+            Ordini = new HashSet<Ordine>();
+        }
     }
 }
