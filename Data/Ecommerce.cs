@@ -1,7 +1,6 @@
 using Ecommerce.Entities.Carrello;
 using Ecommerce.Entities.InfoScarpe;
 using Ecommerce.Entities.InfoUtente;
-using Ecommerce.Entities.Ordini;
 using Ecommerce.Entities.Ordini.OrdineCliente;
 using Ecommerce.Entities.Ordini.OrdineMagazziniere;
 using Ecommerce.Entities.Utenti;
