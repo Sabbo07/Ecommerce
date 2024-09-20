@@ -8,5 +8,12 @@ namespace Ecommerce.Entities.InfoScarpe
         [Required]
         [StringLength(2)]
         public string Numero { get; set; }
+        //proprieta di navigazione per le scarpe    
+         public virtual ICollection<DettagliScarpa> DettagliScarpa { get; set; }
+
+        public Taglia()
+        {
+            DettagliScarpa = new HashSet<DettagliScarpa>();
+        }  
     }
 }
