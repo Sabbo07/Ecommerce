@@ -24,9 +24,20 @@ namespace Ecommerce.Entities.InfoScarpe
         [ForeignKey("CategoriaId")]
         public virtual Categoria Categoria { get; set; }
 
+
         public int ColoreId { get; set; }
 
         [ForeignKey("ColoreId")]
         public virtual Colore Colore { get; set; }
+
+        // proprieta di navigazione
+
+        public virtual ICollection<DettagliScarpa> DettagliScarpe { get; set; } 
+        public Scarpa()
+        {
+            DettagliScarpe = new HashSet<DettagliScarpa>();
+        }
+
+
     }
 }
