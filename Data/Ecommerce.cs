@@ -14,7 +14,7 @@ namespace Ecommerce.Data
 
         }
 
-        public DbSet<Carrello> carrello { get; set; }
+        public DbSet<Cart> carrello { get; set; }
         public DbSet<CarrelloScarpa> carrelloscarpa { get; set; }
         public DbSet<CartaCredito> carta { get; set; }
         public DbSet<Whislist> whislist { get; set; }
@@ -74,7 +74,7 @@ namespace Ecommerce.Data
             modelBuilder.Entity<Scarpa>()
                 .HasMany(s => s.DettagliScarpe) // una scarpa ha molti dettagli scarpe
                 .WithOne(d => d.Scarpa) // un dettaglio scarpa ha una scarpa
-                .HasForeignKey(s => s.ScarpaId); // la scarpa ha una chiave esterna ScarpaId
+                .HasForeignKey(d => d.ScarpaId); // il dettaglio scarpa ha una chiave esterna ScarpaId
              
              //Configurazione specifica della taglia
 
@@ -82,13 +82,41 @@ namespace Ecommerce.Data
                 .HasOne(ds => ds.Taglia)
                 .WithMany(t => t.DettagliScarpa)
                 .HasForeignKey(ds => ds.TagliaId);
-        }
 
+            //Configurazione del carrello
 
+// One-to-One: Cliente -> Cart
+    modelBuilder.Entity<Cliente>()
+        .HasOne(c => c.Cart)
+        .WithOne(cart => cart.Cliente)
+        .HasForeignKey<Cart>(cart => cart.ClienteId)  // Foreign key is ClienteId in Cart
+        .OnDelete(DeleteBehavior.Cascade)  // Ensures cascading deletion of Cart when Cliente is deleted
+        .IsRequired();
 
+    modelBuilder.Entity<Cart>()
+    .HasIndex(c => c.ClienteId)
+    .IsUnique();
 
+    // Composite Key for CarrelloScarpa (join table)
+    modelBuilder.Entity<CarrelloScarpa>()
+        .HasKey(cs => new { cs.CartID, cs.ScarpaID });
 
+    // One-to-Many: Cart -> CarrelloScarpa (cart items)
+    modelBuilder.Entity<CarrelloScarpa>()
+        .HasOne(cs => cs.Cart)
+        .WithMany(cart => cart.CarrelloScarpe)  // A Cart can have many CarrelloScarpa entries
+        .HasForeignKey(cs => cs.CartID)
+        .OnDelete(DeleteBehavior.Cascade);  // Deletes cart items when Cart is deleted
 
+    // One-to-Many: Scarpa -> CarrelloScarpa
+    modelBuilder.Entity<CarrelloScarpa>()
+        .HasOne(cs => cs.Scarpa)
+        .WithMany(s => s.CarrelloScarpe)  // One Scarpa can appear in many CarrelloScarpa entries
+        .HasForeignKey(cs => cs.ScarpaID);
+
+    
+
+ }
 
     }
 }

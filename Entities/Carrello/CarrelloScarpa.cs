@@ -1,24 +1,19 @@
+using Ecommerce.Entities.InfoScarpe;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Ecommerce.Entities.InfoScarpe;
 
 namespace Ecommerce.Entities.Carrello
 {
     public class CarrelloScarpa
     {
-        [Key]
-        public int ID { get; set; }
+        [Key, Column(Order = 0)]
+        public int CartID { get; set; }  // Foreign key to Cart
+        public virtual Cart Cart { get; set; }  // Navigation property
 
-        public int CarrelloID { get; set; }  // Foreign key verso Carrello
-        public int ScarpaID { get; set; }    // Foreign key verso Scarpa
-        public int Quantita { get; set; }    // Quantità di scarpe nel carrello
+        [Key, Column(Order = 1)]
+        public int ScarpaID { get; set; }  // Foreign key to Scarpa
+        public virtual Scarpa Scarpa { get; set; }  // Navigation property
 
-        // Navigazione verso l'entità Carrello
-        [ForeignKey("CarrelloID")]
-        public virtual Carrello Carrello { get; set; }
-
-        // Navigazione verso l'entità Scarpa
-        [ForeignKey("ScarpaID")]
-        public virtual Scarpa Scarpa { get; set; }
+        public int Quantita { get; set; }  // Quantity of shoes in the cart
     }
 }

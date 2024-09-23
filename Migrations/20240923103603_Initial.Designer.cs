@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    [Migration("20240920110752_Initial")]
+    [Migration("20240923103603_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,7 +28,27 @@ namespace Ecommerce.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Ecommerce.Entities.Carrello.Carrello", b =>
+            modelBuilder.Entity("Ecommerce.Entities.Carrello.CarrelloScarpa", b =>
+                {
+                    b.Property<int>("CartID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("ScarpaID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("Quantita")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartID", "ScarpaID");
+
+                    b.HasIndex("ScarpaID");
+
+                    b.ToTable("carrelloscarpa");
+                });
+
+            modelBuilder.Entity("Ecommerce.Entities.Carrello.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,40 +56,15 @@ namespace Ecommerce.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("IdCliente")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCliente");
+                    b.HasIndex("ClienteId")
+                        .IsUnique();
 
                     b.ToTable("carrello");
-                });
-
-            modelBuilder.Entity("Ecommerce.Entities.Carrello.CarrelloScarpa", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("CarrelloID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantita")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ScarpaID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CarrelloID");
-
-                    b.HasIndex("ScarpaID");
-
-                    b.ToTable("carrelloscarpa");
                 });
 
             modelBuilder.Entity("Ecommerce.Entities.InfoScarpe.Brand", b =>
@@ -522,34 +517,34 @@ namespace Ecommerce.Migrations
                     b.ToTable("magazziniere");
                 });
 
-            modelBuilder.Entity("Ecommerce.Entities.Carrello.Carrello", b =>
-                {
-                    b.HasOne("Ecommerce.Entities.Utenti.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("IdCliente")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-                });
-
             modelBuilder.Entity("Ecommerce.Entities.Carrello.CarrelloScarpa", b =>
                 {
-                    b.HasOne("Ecommerce.Entities.Carrello.Carrello", "Carrello")
-                        .WithMany()
-                        .HasForeignKey("CarrelloID")
+                    b.HasOne("Ecommerce.Entities.Carrello.Cart", "Cart")
+                        .WithMany("CarrelloScarpe")
+                        .HasForeignKey("CartID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Ecommerce.Entities.InfoScarpe.Scarpa", "Scarpa")
-                        .WithMany()
+                        .WithMany("CarrelloScarpe")
                         .HasForeignKey("ScarpaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Carrello");
+                    b.Navigation("Cart");
 
                     b.Navigation("Scarpa");
+                });
+
+            modelBuilder.Entity("Ecommerce.Entities.Carrello.Cart", b =>
+                {
+                    b.HasOne("Ecommerce.Entities.Utenti.Cliente", "Cliente")
+                        .WithOne("Cart")
+                        .HasForeignKey("Ecommerce.Entities.Carrello.Cart", "ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("Ecommerce.Entities.InfoScarpe.DettagliScarpa", b =>
@@ -643,7 +638,7 @@ namespace Ecommerce.Migrations
             modelBuilder.Entity("Ecommerce.Entities.Ordini.OrdineCliente.Ordine", b =>
                 {
                     b.HasOne("Ecommerce.Entities.Utenti.Cliente", "Cliente")
-                        .WithMany("Ordini")
+                        .WithMany()
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -732,6 +727,11 @@ namespace Ecommerce.Migrations
                     b.Navigation("Negozio");
                 });
 
+            modelBuilder.Entity("Ecommerce.Entities.Carrello.Cart", b =>
+                {
+                    b.Navigation("CarrelloScarpe");
+                });
+
             modelBuilder.Entity("Ecommerce.Entities.InfoScarpe.Brand", b =>
                 {
                     b.Navigation("Scarpe");
@@ -754,6 +754,8 @@ namespace Ecommerce.Migrations
 
             modelBuilder.Entity("Ecommerce.Entities.InfoScarpe.Scarpa", b =>
                 {
+                    b.Navigation("CarrelloScarpe");
+
                     b.Navigation("DettagliScarpe");
                 });
 
@@ -779,7 +781,8 @@ namespace Ecommerce.Migrations
 
             modelBuilder.Entity("Ecommerce.Entities.Utenti.Cliente", b =>
                 {
-                    b.Navigation("Ordini");
+                    b.Navigation("Cart")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

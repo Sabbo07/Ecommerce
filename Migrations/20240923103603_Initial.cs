@@ -185,14 +185,14 @@ namespace Ecommerce.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    IdCliente = table.Column<int>(type: "int", nullable: false)
+                    ClienteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_carrello", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_carrello_cliente_IdCliente",
-                        column: x => x.IdCliente,
+                        name: "FK_carrello_cliente_ClienteId",
+                        column: x => x.ClienteId,
                         principalTable: "cliente",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -330,18 +330,16 @@ namespace Ecommerce.Migrations
                 name: "carrelloscarpa",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CarrelloID = table.Column<int>(type: "int", nullable: false),
+                    CartID = table.Column<int>(type: "int", nullable: false),
                     ScarpaID = table.Column<int>(type: "int", nullable: false),
                     Quantita = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_carrelloscarpa", x => x.ID);
+                    table.PrimaryKey("PK_carrelloscarpa", x => new { x.CartID, x.ScarpaID });
                     table.ForeignKey(
-                        name: "FK_carrelloscarpa_carrello_CarrelloID",
-                        column: x => x.CarrelloID,
+                        name: "FK_carrelloscarpa_carrello_CartID",
+                        column: x => x.CartID,
                         principalTable: "carrello",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -482,14 +480,10 @@ namespace Ecommerce.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_carrello_IdCliente",
+                name: "IX_carrello_ClienteId",
                 table: "carrello",
-                column: "IdCliente");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_carrelloscarpa_CarrelloID",
-                table: "carrelloscarpa",
-                column: "CarrelloID");
+                column: "ClienteId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_carrelloscarpa_ScarpaID",

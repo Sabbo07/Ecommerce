@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Ecommerce.Entities.Carrello;
 namespace Ecommerce.Entities.InfoScarpe
 {
     public class Scarpa
@@ -29,6 +29,9 @@ namespace Ecommerce.Entities.InfoScarpe
 
         [ForeignKey("ColoreId")]
         public virtual Colore Colore { get; set; }
+
+        public virtual ICollection<CarrelloScarpa> CarrelloScarpe { get; set; }  // One-to-many: one shoe can be in many carts
+
 
         // proprieta di navigazione
 
