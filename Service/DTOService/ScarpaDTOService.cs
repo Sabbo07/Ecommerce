@@ -1,10 +1,11 @@
 using Ecommerce.Entities.InfoScarpe;
 using Ecommerce.Entities.InfoScarpe.DTO;
 using Ecommerce.Repository.Shoes;
+using Ecommerce.Service.DTOService;
 
 namespace Ecommerce.Service
 {
-    public class ScarpaDTOService
+    public class ScarpaDTOService : IScarpaDTOService
     {
 
         private readonly IScarpaRepository _scarpaRepository;
