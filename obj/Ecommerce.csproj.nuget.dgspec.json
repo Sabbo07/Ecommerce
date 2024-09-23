@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Serandp\\ASPNETWS\\E-Commerce\\Ecommerce\\Ecommerce.csproj": {}
+    "C:\\Users\\ruggi\\ASPNETWS\\Ecommerce\\Ecommerce.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Serandp\\ASPNETWS\\E-Commerce\\Ecommerce\\Ecommerce.csproj": {
+    "C:\\Users\\ruggi\\ASPNETWS\\Ecommerce\\Ecommerce.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Serandp\\ASPNETWS\\E-Commerce\\Ecommerce\\Ecommerce.csproj",
+        "projectUniqueName": "C:\\Users\\ruggi\\ASPNETWS\\Ecommerce\\Ecommerce.csproj",
         "projectName": "Ecommerce",
-        "projectPath": "C:\\Users\\Serandp\\ASPNETWS\\E-Commerce\\Ecommerce\\Ecommerce.csproj",
-        "packagesPath": "C:\\Users\\Serandp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Serandp\\ASPNETWS\\E-Commerce\\Ecommerce\\obj\\",
+        "projectPath": "C:\\Users\\ruggi\\ASPNETWS\\Ecommerce\\Ecommerce.csproj",
+        "packagesPath": "C:\\Users\\ruggi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ruggi\\ASPNETWS\\Ecommerce\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Serandp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ruggi\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

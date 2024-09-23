@@ -105,9 +105,12 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 using Ecommerce.Data;
 using Ecommerce.Repository.Shoes;
 using Ecommerce.Repository.Warehouseman;
+using Ecommerce.Service;
+using Ecommerce.Service.DTOService;
 using Ecommerce.Service.SerivizioScarpa;
 using Ecommerce.Service.ServizoScarpa;
 using Ecommerce.Service.Warehouseman;
+using Ecommerce.Service.DTOService;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -120,7 +123,7 @@ builder.Services.AddSwaggerGen();
 // Configurazione del DbContext con MySQL
 builder.Services.AddDbContext<EcommerceContext>(options =>
     options.UseMySql(
-        "Server=127.0.0.1;Port=3306;Database=EcommerceDB;User=adminuser;Password=securepassword123;",
+        "Server=127.0.0.1;Port=3306;Database=EcommerceDB;User=root;Password=root;",
         new MySqlServerVersion(new Version(8, 0, 23))
     ));
 
@@ -137,6 +140,7 @@ builder.Services.AddScoped<IScarpaRepository, ScarpaRepository>();
 builder.Services.AddScoped<IScarpaService, ScarpaService>();
 builder.Services.AddScoped<IMagazziniereRepository, MagazziniereRepository>();
 builder.Services.AddScoped<IMagazziniereService, MagazziniereService>();
+builder.Services.AddScoped<IScarpaDTOService, ScarpaDTOService>();
 
 // CORS Configuration
 builder.Services.AddCors(options =>
