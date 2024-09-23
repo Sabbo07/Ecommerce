@@ -1,0 +1,2 @@
+1. finire le DTO, sto praticamente alla dichiarazione nel controller letteralmente.
+https://chatgpt.com/share/66f189fa-0b40-8000-9bf3-6693b88e1928
