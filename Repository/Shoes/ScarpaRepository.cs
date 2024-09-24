@@ -71,7 +71,41 @@ public class ScarpaRepository : IScarpaRepository
         _context.Set<Scarpa>().Add(scarpa);
         _context.SaveChanges();
     }
+    public List<Scarpa> GetByModelloNome(string modelloNome)
+{
+    if (string.IsNullOrWhiteSpace(modelloNome))
+    {
+        return new List<Scarpa>(); // Restituisci una lista vuota se il nome del modello è null o vuoto
+    }
 
+    var scarpe = _context.scarpa
+        .Include(s => s.Modello)
+        .Include(s => s.Categoria)
+        .Include(s => s.Brand)
+        .Include(s => s.Colore)
+        .Where(s => s.Modello.Nome.ToLower().Contains(modelloNome.ToLower()))
+        .ToList();
+
+    
+    return scarpe;
+}
+public async Task<List<Scarpa>> GetByModelloNomeAsync(string modelloNome)
+{
+    if (string.IsNullOrWhiteSpace(modelloNome))
+    {
+        return new List<Scarpa>(); // Return an empty list if the model name is null or empty
+    }
+
+    var scarpe = await _context.scarpa
+        .Include(s => s.Modello)
+        .Include(s => s.Categoria)
+        .Include(s => s.Brand)
+        .Include(s => s.Colore)
+        .Where(s => s.Modello.Nome.ToLower().Contains(modelloNome.ToLower()))
+        .ToListAsync();
+
+    return scarpe;
+}
     
 }
 }

@@ -104,7 +104,11 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 
 using Ecommerce.Data;
 using Ecommerce.Repository.Shoes;
+using Ecommerce.Repository.ShoesDTO;
 using Ecommerce.Repository.Warehouseman;
+using Ecommerce.Service;
+using Ecommerce.Service.Carrello;
+using Ecommerce.Service.DTOService;
 using Ecommerce.Service.SerivizioScarpa;
 using Ecommerce.Service.ServizoScarpa;
 using Ecommerce.Service.Warehouseman;
@@ -137,7 +141,10 @@ builder.Services.AddScoped<IScarpaRepository, ScarpaRepository>();
 builder.Services.AddScoped<IScarpaService, ScarpaService>();
 builder.Services.AddScoped<IMagazziniereRepository, MagazziniereRepository>();
 builder.Services.AddScoped<IMagazziniereService, MagazziniereService>();
-
+builder.Services.AddScoped<IScarpaDTOService, ScarpaDTOService>();
+builder.Services.AddScoped<IScarpaDTORepository, ScarpaDTORepository>();
+builder.Services.AddScoped<ICarrelloService, CarrelloService>();
+builder.Services.AddScoped<ICarrelloRepository, CarrelloRepository>(); 
 // CORS Configuration
 builder.Services.AddCors(options =>
 {

@@ -11,5 +11,6 @@ namespace Ecommerce.Entities.InfoScarpe
     public int QtaTaglia { get; set; }
     public double Prezzo { get; set; }
     public double Sconto { get; set; }
+    
     }
 }

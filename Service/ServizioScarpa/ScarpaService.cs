@@ -57,5 +57,9 @@ namespace Ecommerce.Service.SerivizioScarpa
 
         _scarpaRepository.AddScarpa(scarpa);
     }
+    public async Task<List<Scarpa>> GetByModelloNomeAsync(string modelloNome)
+    {
+        return await _scarpaRepository.GetByModelloNomeAsync(modelloNome);
+    }
     }
 }

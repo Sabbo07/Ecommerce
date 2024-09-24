@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Ecommerce.Service.ServizoScarpa;
 using Ecommerce.Entities.InfoScarpe;
 
+
 namespace Ecommerce.Controllers
 {
     [Route("api/[controller]")]
@@ -37,14 +38,15 @@ namespace Ecommerce.Controllers
     }
 
 
-    [HttpOptions("{id}")]
+  /*  [HttpOptions("{id}")]
      public async Task<IActionResult> GetScarpaById()
      {
             return Ok();
      }
-
+*/
     // POST: api/scarpa
-    [HttpPost("CreateScarpa")]
+  
+   [HttpPost("Nascosto")]
 public async Task<IActionResult> CreateScarpa([FromBody] Scarpa scarpa)
 {
     if (!ModelState.IsValid)
@@ -64,11 +66,12 @@ public async Task<IActionResult> CreateScarpa([FromBody] Scarpa scarpa)
     }
 }
 
-    [HttpOptions("CreateScarpa")]
+    /*[HttpOptions("CreateScarpa")]
     public async Task<IActionResult> CreateScarpa()
     {
         return Ok();
     }
+    */
 
 
 
@@ -104,9 +107,9 @@ public async Task<IActionResult> CreateScarpa([FromBody] Scarpa scarpa)
             request.ColoreId,
             request.Dettagli);
 
-        return CreatedAtAction(nameof(CreateScarpa), new { /* return details if needed */ });
+        return CreatedAtAction(nameof(ScarpaController.CreateScarpa), new { /* return details if needed */ });
     }
-
+    
 
     }
     public class CreateScarpaRequest

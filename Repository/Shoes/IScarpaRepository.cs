@@ -15,8 +15,8 @@ namespace Ecommerce.Repository.Shoes
 
 
     void AddScarpa(Scarpa scarpa);
-
-
+    public List<Scarpa> GetByModelloNome(string modelloNome);
+    Task<List<Scarpa>> GetByModelloNomeAsync(string modelloNome);
 
     }
 }

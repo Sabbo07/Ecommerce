@@ -10,7 +10,10 @@ namespace Ecommerce.Service.ServizoScarpa
     Task DeleteScarpaAsync(int id);
 
     void AggiungiScarpa(int modelloId, int brandId, int categoriaId, int coloreId, List<DettaglioScarpaDto> dettagli);
-}
+
+    Task<List<Scarpa>> GetByModelloNomeAsync(string modelloNome);
+    
+    }
 }
 // le task sono usate per fare asincronismo
 //Gli IEnumeable sono usati per iterare su una collezione di oggetti
