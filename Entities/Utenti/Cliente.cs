@@ -1,10 +1,12 @@
 using Ecommerce.Entities.Carrello;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Ecommerce.Entities.Utenti
 {
     public class Cliente
     {
+        [JsonIgnore]
         [Key]
         public int Id { get; set; }
 
@@ -29,6 +31,8 @@ namespace Ecommerce.Entities.Utenti
         public string Indirizzo { get; set; }
 
         // One-to-One relationship with Cart
+        
+        [JsonIgnore]
         public virtual Cart Cart { get; set; }
  }
 }

@@ -17,7 +17,7 @@ namespace Ecommerce.Service
             _scarpaRepository = scarpaRepository;
             _scarpaDTORepository = _scarpaDTORepository;
         }
-        public async Task<ScarpaDTO> GetScarpaDtoByIdAsync(int id)
+        public async Task<ScarpaDTO?> GetScarpaDtoByIdAsync(int id)
         {
             // Fetch the entity from the repository
             var scarpa = await _scarpaRepository.GetScarpaByIdAsync(id);
