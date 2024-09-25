@@ -30,5 +30,5 @@ namespace Ecommerce.Entities.Utenti
 
         // One-to-One relationship with Cart
         public virtual Cart Cart { get; set; }
-    }
+ }
 }

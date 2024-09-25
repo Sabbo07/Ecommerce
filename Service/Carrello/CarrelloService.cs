@@ -27,11 +27,14 @@ public class CarrelloService : ICarrelloService
             cart = new Cart
             {
                 ClienteId = clienteId,
+                Id = clienteId,
                 CarrelloScarpe = new List<CarrelloScarpa>()
             };
+            
             await _carrelloRepository.AddCarrelloAsync(cart);
+            await _carrelloRepository.SaveChangesAsync();
         }
-
+        _context.carrello.Update(cart);
         // Find the shoe
         var scarpa = await _context.scarpa.FindAsync(scarpaId); // Assuming ScarpaRepo or DbContext handles this
         if (scarpa == null)
@@ -41,7 +44,10 @@ public class CarrelloService : ICarrelloService
 
         // Check if the shoe is already in the cart
         var carrelloScarpa = cart.CarrelloScarpe.FirstOrDefault(cs => cs.ScarpaID == scarpaId);
-
+        if (carrelloScarpa != null)
+        {
+            _context.carrelloscarpa.Update(carrelloScarpa);  // Only update if the item already exists
+        }
         if (carrelloScarpa != null)
         {
             // Update quantity if the shoe is already in the cart
@@ -52,13 +58,17 @@ public class CarrelloService : ICarrelloService
             // Add the shoe to the cart
             cart.CarrelloScarpe.Add(new CarrelloScarpa
             {
+                CartID = clienteId,
                 ScarpaID = scarpaId,
                 Quantita = quantita
             });
+
         }
 
         // Update the cart and save changes
+       // _context.carrelloscarpa.Update(carrelloScarpa);
+
         await _carrelloRepository.UpdateCarrelloAsync(cart);
-        await _carrelloRepository.SaveChangesAsync();
+                    await _carrelloRepository.SaveChangesAsync();
     }
 }
