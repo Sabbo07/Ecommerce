@@ -1,7 +1,5 @@
-using Ecommerce.Controllers;
-using Ecommerce.Entities.InfoScarpe;
+
 using Ecommerce.Entities.InfoScarpe.DTO;
-using Ecommerce.Service;
 using Ecommerce.Service.DTOService;
 using Ecommerce.Service.ServizoScarpa;
 using Microsoft.AspNetCore.Mvc;
