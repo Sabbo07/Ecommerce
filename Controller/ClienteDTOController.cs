@@ -37,7 +37,7 @@ namespace Ecommerce.Controller
             }
         }
         
-    /*    [HttpPost("loggati")]
+/*        [HttpPost("login")]
         public  IActionResult Login([FromBody] LoginRequest request)
         {
             if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
@@ -55,6 +55,7 @@ namespace Ecommerce.Controller
             return Ok(new { Id = ClienteDTO.Id });
         }
         */
+        
     }
     
     public class LoginRequest

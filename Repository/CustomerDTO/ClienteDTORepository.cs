@@ -52,6 +52,7 @@ namespace Ecommerce.Repository.CustomerDTO
         Id = cliente.Id,
         Nome = cliente.Nome,
         Email = cliente.Email,
+        Password = cliente.Password,
         // Map other properties from Cliente to ClienteDTO as needed
     };
 

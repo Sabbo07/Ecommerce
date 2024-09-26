@@ -73,20 +73,20 @@ namespace Ecommerce.Service
 
             return scarpeDto;
         }
-       public async Task<IEnumerable<ScarpaSearchResultDTO>> SearchScarpeByModelloNameAsync(ScarpaSearchDTO searchDto)
-{
-    var scarpe = await _scarpaDTORepository.SearchScarpeByModelloNameAsync(searchDto);
+        public async Task<IEnumerable<ScarpaSearchResultDTO>> SearchScarpeByModelloNameAsync(ScarpaSearchDTO searchDto)
+        {
+            var scarpe = await _scarpaDTORepository.SearchScarpeByModelloNameAsync(searchDto);
 
-    // Map the necessary fields to the new DTO
-    return scarpe.Select(s => new ScarpaSearchResultDTO
-    {
-        ModelloNome = s.Modello?.Nome,
-        BrandNome = s.Brand?.Nome,
-        ColoreNome = s.Colore?.Nome,
-        NumeroTaglia = s.DettagliScarpe?.FirstOrDefault()?.Taglia?.Numero,
-        CategoriaNome = s.Categoria?.Nome
-    }).ToList();
-}
+            // Map the necessary fields to the new DTO
+            return scarpe.Select(s => new ScarpaSearchResultDTO
+            {
+                ModelloNome = s.Modello?.Nome,
+                BrandNome = s.Brand?.Nome,
+                ColoreNome = s.Colore?.Nome,
+                NumeroTaglia = s.DettagliScarpe?.FirstOrDefault()?.Taglia?.Numero,
+                CategoriaNome = s.Categoria?.Nome
+            }).ToList();
+        }
 
 
 

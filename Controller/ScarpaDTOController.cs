@@ -43,31 +43,31 @@ namespace Ecommerce.Controller
             return Ok(scarpeDto);
         }
         [HttpGet("modello/{scarpaModello}")]
-public async Task<ActionResult<List<ScarpaDTO>>> GetByModelloScarpa(string scarpaModello)
-{
-    if (string.IsNullOrWhiteSpace(scarpaModello))
-    {
-        return BadRequest("Il nome del modello non può essere vuoto o nullo.");
-    }
+        public async Task<ActionResult<List<ScarpaDTO>>> GetByModelloScarpa(string scarpaModello)
+        {
+            if (string.IsNullOrWhiteSpace(scarpaModello))
+            {
+                return BadRequest("Il nome del modello non può essere vuoto o nullo.");
+            }
 
-    var scarpe = await _scarpaService.GetByModelloNomeAsync(scarpaModello);
+            var scarpe = await _scarpaService.GetByModelloNomeAsync(scarpaModello);
 
-    if (scarpe == null || !scarpe.Any())
-    {
-        return NotFound($"Nessuna scarpa trovata con il modello contenente: '{scarpaModello}'.");
-    }
+            if (scarpe == null || !scarpe.Any())
+            {
+                return NotFound($"Nessuna scarpa trovata con il modello contenente: '{scarpaModello}'.");
+            }
 
-    var scarpaDtos = scarpe.Select(s => new ScarpaDTO
-    {
-        NomeModello = s.Modello.Nome,
-        NomeBrand = s.Brand.Nome,
-        NomeColore = s.Colore.Nome,
-        NomeCategoria = s.Categoria.Nome,
-        NumeroTaglia = s.DettagliScarpe.FirstOrDefault()?.Taglia.Numero // Adjust based on your data
-    }).ToList();
+            var scarpaDtos = scarpe.Select(s => new ScarpaDTO
+            {
+                NomeModello = s.Modello.Nome,
+                NomeBrand = s.Brand.Nome,
+                NomeColore = s.Colore.Nome,
+                NomeCategoria = s.Categoria.Nome,
+                NumeroTaglia = s.DettagliScarpe.FirstOrDefault()?.Taglia.Numero // Adjust based on your data
+            }).ToList();
 
-    return Ok(scarpaDtos);
-}
+            return Ok(scarpaDtos);
+        }
 
 
 
