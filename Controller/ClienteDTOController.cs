@@ -37,7 +37,7 @@ namespace Ecommerce.Controller
             }
         }
         
-/*        [HttpPost("login")]
+        [HttpPost("login")]
         public  IActionResult Login([FromBody] LoginRequest request)
         {
             if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
@@ -45,16 +45,15 @@ namespace Ecommerce.Controller
                 return BadRequest("Invalid data.");
             }
 
-            var ClienteDTO = _clienteDTOService.Login(request.Email, request.Password);
-            if (ClienteDTO == null)
+            var ClienteDTOLogin = _clienteDTOService.Login(request.Email, request.Password);
+            if (ClienteDTOLogin == null)
             {
                 return Unauthorized("Invalid email or password.");
             }
 
             // Return the ID of the logged-in user
-            return Ok(new { Id = ClienteDTO.Id });
+            return Ok(new { Id = ClienteDTOLogin.Id });
         }
-        */
         
     }
     

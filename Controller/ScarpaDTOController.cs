@@ -69,6 +69,24 @@ namespace Ecommerce.Controller
             return Ok(scarpaDtos);
         }
 
+        [HttpDelete("delete-scarpa/{scarpaId}")]
+public async Task<IActionResult> DeleteScarpa(int scarpaId)
+{
+    try
+    {
+        bool isDeleted = await _scarpaDTOService.DeleteScarpaAsync(scarpaId);
+        if (!isDeleted)
+        {
+            return NotFound("Scarpa not found.");
+        }
+
+        return Ok("Scarpa deleted successfully.");
+    }
+    catch (Exception ex)
+    {
+        return BadRequest(ex.Message);  // Handle any unexpected errors
+    }
+}
 
 
 

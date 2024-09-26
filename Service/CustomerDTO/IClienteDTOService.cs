@@ -6,6 +6,6 @@ namespace Ecommerce.Service.CustomerDTO
     public interface IClienteDTOService
     {
         Task RegisterClienteAsync(ClienteDTO clienteDto);
-        ClienteDTO Login(string email, string password);
+        ClienteDTOLogin Login(string email, string password);
     }
 }

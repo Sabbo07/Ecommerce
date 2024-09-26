@@ -12,5 +12,6 @@ namespace Ecommerce.Service.InformazioniDTO
         Task addBrandAsync(BrandDTO brandDto);
         Task addModelloAsync(ModelloDTO modelloDTO);
         Task addColoreAsync(ColoreDTO coloreDTO);
+        Task addTagliaAsync(TagliaDTO tagliaDTO);
     }
 }

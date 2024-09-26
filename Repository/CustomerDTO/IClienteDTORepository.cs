@@ -12,6 +12,6 @@ namespace Ecommerce.Repository.CustomerDTO
         Task<Cliente> GetClienteByEmailAsync(string email);
         Task AddClienteAsync(Cliente cliente);
         Task SaveChangesAsync();
-        public ClienteDTO GetByEmail(string email);
+        public ClienteDTOLogin GetByEmail(string email);
     }
 }

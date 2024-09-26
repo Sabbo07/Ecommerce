@@ -13,6 +13,8 @@ namespace Ecommerce.Repository.InformazioniDTO
         Task<bool> ExistsByNameMAsync(string nome);
         Task AddColoreAsync(Colore colore);
         Task<bool> ExistsByNameColoreAsync(string nome);
+        Task AddTagliaAsync(Taglia taglia);
+        Task<bool> ExistsByNameTagliaAsync(string nome);
        
     }
 }

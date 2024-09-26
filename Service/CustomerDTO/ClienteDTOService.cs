@@ -53,10 +53,10 @@ namespace Ecommerce.Service.CustomerDTO
             // return BCrypt.Net.BCrypt.HashPassword(password);
             return password;  // Plain text for demo purposes (Not recommended for production)
         }
-        public ClienteDTO Login(string email, string password)
+        public ClienteDTOLogin Login(string email, string password)
     {
         // Check if the user exists and the password is correct
-        ClienteDTO clientedto = _clienteDTORepository.GetByEmail(email);
+        ClienteDTOLogin clientedto = _clienteDTORepository.GetByEmail(email);
         if (clientedto != null && clientedto.Password == password) // Use a secure method for password checking in production
         {
             return clientedto;

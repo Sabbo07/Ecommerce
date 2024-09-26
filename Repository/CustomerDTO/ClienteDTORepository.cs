@@ -35,7 +35,7 @@ namespace Ecommerce.Repository.CustomerDTO
         {
             await _context.SaveChangesAsync();
         }
-        public ClienteDTO GetByEmail(string email)
+        public ClienteDTOLogin GetByEmail(string email)
 {
     // Retrieve the Cliente entity based on the email
     var cliente = _context.cliente.SingleOrDefault(m => m.Email == email);
@@ -47,7 +47,7 @@ namespace Ecommerce.Repository.CustomerDTO
     }
 
     // Map Cliente entity to ClienteDTO
-    var clienteDto = new ClienteDTO
+    var clienteDtoLogin = new ClienteDTOLogin
     {
         Id = cliente.Id,
         Nome = cliente.Nome,
@@ -57,7 +57,7 @@ namespace Ecommerce.Repository.CustomerDTO
     };
 
     // Return the mapped ClienteDTO
-    return clienteDto;
+    return clienteDtoLogin;
 }
 
     }

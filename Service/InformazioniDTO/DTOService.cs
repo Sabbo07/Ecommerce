@@ -82,6 +82,21 @@ namespace Ecommerce.Service.InformazioniDTO
         // Call repository to add the new color
         await _DTORepository.AddColoreAsync(colore);
 }
+    public async Task addTagliaAsync(TagliaDTO tagliaDTO)
+    {
+        // Business logic: for example, validate that the taglia name is unique
+        if (await _DTORepository.ExistsByNameTagliaAsync(tagliaDTO.Numero))
+        {
+            throw new Exception("Taglia with the same name already exists.");
+        }
+        // Map the TagliaDTO to the Taglia entity
+        var taglia = new Taglia
+        {
+            Numero = tagliaDTO.Numero
+        };
+    }
+    
+
 
 }
 }

@@ -10,31 +10,37 @@ namespace Ecommerce.Repository.ShoesDTO
         private readonly EcommerceContext _context;
         private readonly IScarpaRepository _scarpaRepository;
 
-    public ScarpaDTORepository(EcommerceContext context)
-    {
-        _context = context;
-        _scarpaRepository = _scarpaRepository;
-    }
-
-    public async Task<IEnumerable<Scarpa>> SearchScarpeByModelloNameAsync(ScarpaSearchDTO searchDto)
-    {
-        if (string.IsNullOrWhiteSpace(searchDto.ModelloName))
+        public ScarpaDTORepository(EcommerceContext context)
         {
-            throw new ArgumentException("Modello name cannot be empty."); // Handle invalid input
+            _context = context;
+            _scarpaRepository = _scarpaRepository;
         }
 
-        return await _context.scarpa
-            .Include(s => s.Modello) // Include the Modello related data
-            .Where(s => s.Modello != null && s.Modello.Nome.Contains(searchDto.ModelloName)) // Check for null
-            .ToListAsync();
+        public async Task<IEnumerable<Scarpa>> SearchScarpeByModelloNameAsync(ScarpaSearchDTO searchDto)
+        {
+            if (string.IsNullOrWhiteSpace(searchDto.ModelloName))
+            {
+                throw new ArgumentException("Modello name cannot be empty."); // Handle invalid input
+            }
+
+            return await _context.scarpa
+                .Include(s => s.Modello) // Include the Modello related data
+                .Where(s => s.Modello != null && s.Modello.Nome.Contains(searchDto.ModelloName)) // Check for null
+                .ToListAsync();
+        }
+        public async Task<List<Scarpa>> GetByModelloNomeAsync(string modelloNome)
+        {
+            return await _scarpaRepository.GetByModelloNomeAsync(modelloNome);
+        }
+        public async Task DeleteScarpaAsync(Scarpa scarpa)
+    {
+        // Remove Scarpa from the database
+        _context.scarpa.Remove(scarpa);
+        await _context.SaveChangesAsync(); // Save changes to the database
     }
-    public async Task<List<Scarpa>> GetByModelloNomeAsync(string modelloNome)
-{
-    return await _scarpaRepository.GetByModelloNomeAsync(modelloNome);
-}
-}
-
-
-
-
     }
+
+
+
+
+}

@@ -11,5 +11,6 @@ namespace Ecommerce.Service.DTOService
        Task<ScarpaDTO> GetScarpaDtoByIdAsync(int id);
        Task<IEnumerable<ScarpaDTO>> GetAllScarpeDtoAsync();
        Task<IEnumerable<ScarpaSearchResultDTO>> SearchScarpeByModelloNameAsync(ScarpaSearchDTO searchDto);
+       Task<bool> DeleteScarpaAsync(int scarpaId);
     }
 }

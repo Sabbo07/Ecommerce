@@ -88,7 +88,19 @@ namespace Ecommerce.Service
             }).ToList();
         }
 
+    public async Task<bool> DeleteScarpaAsync(int scarpaId)
+    {
+        // Check if the Scarpa exists in the repository
+        var scarpa = await _scarpaRepository.GetScarpaByIdAsync(scarpaId);
+        if (scarpa == null)
+        {
+            return false; // Scarpa not found
+        }
 
+        // Proceed with deletion if Scarpa exists
+        await _scarpaDTORepository.DeleteScarpaAsync(scarpa);
+        return true; // Deletion successful
+    }
 
 
 
