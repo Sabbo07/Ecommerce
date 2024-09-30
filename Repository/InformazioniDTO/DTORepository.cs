@@ -65,22 +65,5 @@ namespace Ecommerce.Repository.InformazioniDTO
             // Check if a size with the same name already exists
             return await _context.taglia.AnyAsync(t => t.Numero == numero);
         }
-        public async Task addTagliaAsync(TagliaDTO tagliaDTO)
-        {
-            // Business logic: for example, validate that the size name is unique
-            if (await ExistsByNameTagliaAsync(tagliaDTO.Numero))
-            {
-                throw new Exception("Taglia with the same name already exists.");
-            }
-
-            // Map the TagliaDTO to the Taglia entity
-            var taglia = new Taglia
-            {
-                Numero = tagliaDTO.Numero
-            };
-
-            // Call repository to add the new size
-            await AddTagliaAsync(taglia);
-        }
     }
 }

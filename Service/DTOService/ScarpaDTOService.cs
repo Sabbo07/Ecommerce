@@ -101,6 +101,7 @@ namespace Ecommerce.Service
         await _scarpaDTORepository.DeleteScarpaAsync(scarpa);
         return true; // Deletion successful
     }
+    
 
 
 

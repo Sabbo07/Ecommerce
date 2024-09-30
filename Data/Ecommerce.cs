@@ -4,6 +4,7 @@ using Ecommerce.Entities.InfoUtente;
 using Ecommerce.Entities.Ordini.OrdineCliente;
 using Ecommerce.Entities.Ordini.OrdineMagazziniere;
 using Ecommerce.Entities.Utenti;
+using Ecommerce.Entities.Listadesideri;
 using Microsoft.EntityFrameworkCore;
 namespace Ecommerce.Data
 {
@@ -18,6 +19,7 @@ namespace Ecommerce.Data
         public DbSet<CarrelloScarpa> carrelloscarpa { get; set; }
         public DbSet<CartaCredito> carta { get; set; }
         public DbSet<Whislist> whislist { get; set; }
+        public DbSet<ListaDesideriScarpa> listadesideri { get; set; }
         public DbSet<Brand> brand { get; set; }
         public DbSet<Categoria> categoria { get; set; }
         public DbSet<Colore> colore { get; set; }
@@ -34,6 +36,9 @@ namespace Ecommerce.Data
         public DbSet<Rifornimento> rifornimento { get; set; }
         public DbSet<Cliente> cliente { get; set; }
         public DbSet<Magazziniere> magazziniere { get; set; }
+
+
+        public DbSet<ListaDesideriScarpa> listadesideriscarpa {get; set;}
 
         // Configurazione per non caricare dati superflui
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -113,7 +118,40 @@ namespace Ecommerce.Data
         .HasOne(cs => cs.Scarpa)
         .WithMany(s => s.CarrelloScarpe)  // One Scarpa can appear in many CarrelloScarpa entries
         .HasForeignKey(cs => cs.ScarpaID);
+    
+   
+/////////////////////////////////////////////////////////////////////////////////
+///
 
+
+// One-to-One: Cliente -> Cart
+    modelBuilder.Entity<Cliente>()
+        .HasOne(c => c.Whislist)
+        .WithOne(whislist => whislist.Cliente)
+        .HasForeignKey<Whislist>(whislist => whislist.ClienteId)  // Foreign key is ClienteId in Cart
+        .OnDelete(DeleteBehavior.Cascade)  // Ensures cascading deletion of Cart when Cliente is deleted
+        .IsRequired();
+
+    modelBuilder.Entity<Whislist>()
+    .HasIndex(w => w.ClienteId)
+    .IsUnique();
+
+    // Composite Key for CarrelloScarpa (join table)
+    modelBuilder.Entity<ListaDesideriScarpa>()
+        .HasKey(ld => new { ld.WhislistID, ld.ScarpaID });
+
+    // One-to-Many: Cart -> CarrelloScarpa (cart items)
+    modelBuilder.Entity<ListaDesideriScarpa>()
+        .HasOne(ld => ld.whislist)
+        .WithMany(w => w.listadesideri)  // A Cart can have many CarrelloScarpa entries
+        .HasForeignKey(ld => ld.WhislistID)
+        .OnDelete(DeleteBehavior.Cascade);  // Deletes cart items when Cart is deleted
+
+    // One-to-Many: Scarpa -> CarrelloScarpa
+    modelBuilder.Entity<ListaDesideriScarpa>()
+        .HasOne(ld => ld.Scarpa)
+        .WithMany(s => s.WhislistScarpe)  // One Scarpa can appear in many CarrelloScarpa entries
+        .HasForeignKey(ld => ld.ScarpaID);
     
 
  }

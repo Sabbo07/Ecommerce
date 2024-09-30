@@ -1,4 +1,6 @@
 using Ecommerce.Entities.Carrello;
+using Ecommerce.Entities.Listadesideri;
+using Ecommerce.Entities.InfoUtente;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -34,5 +36,8 @@ namespace Ecommerce.Entities.Utenti
         
         [JsonIgnore]
         public virtual Cart Cart { get; set; }
+
+        [JsonIgnore]
+        public virtual Whislist Whislist {get; set;}
  }
 }

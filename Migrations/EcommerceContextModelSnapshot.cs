@@ -266,16 +266,32 @@ namespace Ecommerce.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ScarpaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("ScarpaId");
+                    b.HasIndex("ClienteId")
+                        .IsUnique();
 
                     b.ToTable("whislist");
+                });
+
+            modelBuilder.Entity("Ecommerce.Entities.Listadesideri.ListaDesideriScarpa", b =>
+                {
+                    b.Property<int>("WhislistID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("ScarpaID")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("Quantita")
+                        .HasColumnType("int");
+
+                    b.HasKey("WhislistID", "ScarpaID");
+
+                    b.HasIndex("ScarpaID");
+
+                    b.ToTable("ListaDesideriScarpa");
                 });
 
             modelBuilder.Entity("Ecommerce.Entities.Ordini.OrdineCliente.Ordine", b =>
@@ -616,20 +632,31 @@ namespace Ecommerce.Migrations
             modelBuilder.Entity("Ecommerce.Entities.InfoUtente.Whislist", b =>
                 {
                     b.HasOne("Ecommerce.Entities.Utenti.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ecommerce.Entities.InfoScarpe.Scarpa", "Scarpa")
-                        .WithMany()
-                        .HasForeignKey("ScarpaId")
+                        .WithOne("Whislist")
+                        .HasForeignKey("Ecommerce.Entities.InfoUtente.Whislist", "ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("Ecommerce.Entities.Listadesideri.ListaDesideriScarpa", b =>
+                {
+                    b.HasOne("Ecommerce.Entities.InfoScarpe.Scarpa", "Scarpa")
+                        .WithMany("WhislistScarpe")
+                        .HasForeignKey("ScarpaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.Entities.InfoUtente.Whislist", "whislist")
+                        .WithMany("listadesideri")
+                        .HasForeignKey("WhislistID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Scarpa");
+
+                    b.Navigation("whislist");
                 });
 
             modelBuilder.Entity("Ecommerce.Entities.Ordini.OrdineCliente.Ordine", b =>
@@ -754,11 +781,18 @@ namespace Ecommerce.Migrations
                     b.Navigation("CarrelloScarpe");
 
                     b.Navigation("DettagliScarpe");
+
+                    b.Navigation("WhislistScarpe");
                 });
 
             modelBuilder.Entity("Ecommerce.Entities.InfoScarpe.Taglia", b =>
                 {
                     b.Navigation("DettagliScarpa");
+                });
+
+            modelBuilder.Entity("Ecommerce.Entities.InfoUtente.Whislist", b =>
+                {
+                    b.Navigation("listadesideri");
                 });
 
             modelBuilder.Entity("Ecommerce.Entities.Ordini.OrdineCliente.Ordine", b =>
@@ -779,6 +813,9 @@ namespace Ecommerce.Migrations
             modelBuilder.Entity("Ecommerce.Entities.Utenti.Cliente", b =>
                 {
                     b.Navigation("Cart")
+                        .IsRequired();
+
+                    b.Navigation("Whislist")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

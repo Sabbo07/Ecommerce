@@ -38,7 +38,7 @@ namespace Ecommerce.Controller
         }
         
         [HttpPost("login")]
-        public  IActionResult Login([FromBody] LoginRequest request)
+        public  IActionResult Login([FromBody] LoginRequest2 request)
         {
             if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
             {
@@ -57,7 +57,7 @@ namespace Ecommerce.Controller
         
     }
     
-    public class LoginRequest
+    public class LoginRequest2
 {
     public string Email { get; set; }
     public string Password { get; set; }

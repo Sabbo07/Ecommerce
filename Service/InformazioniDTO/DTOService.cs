@@ -94,6 +94,7 @@ namespace Ecommerce.Service.InformazioniDTO
         {
             Numero = tagliaDTO.Numero
         };
+        await _DTORepository.AddTagliaAsync(taglia);
     }
     
 

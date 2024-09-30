@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Ecommerce.Entities.Carrello;
+using Ecommerce.Entities.InfoUtente;
+using Ecommerce.Entities.Listadesideri;
 namespace Ecommerce.Entities.InfoScarpe
 {
     public class Scarpa
@@ -32,6 +34,7 @@ namespace Ecommerce.Entities.InfoScarpe
 
         public virtual ICollection<CarrelloScarpa> CarrelloScarpe { get; set; }  // One-to-many: one shoe can be in many carts
 
+        public virtual ICollection<ListaDesideriScarpa> WhislistScarpe { get; set; }  // One-to-many: one shoe can be in many whislists
 
         // proprieta di navigazione
 

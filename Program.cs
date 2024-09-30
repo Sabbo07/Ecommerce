@@ -2,6 +2,9 @@ using Ecommerce.Data;
 using Ecommerce.Repository.Customer;
 using Ecommerce.Repository.CustomerDTO;
 using Ecommerce.Repository.InformazioniDTO;
+using Ecommerce.Repository.InformazioniDTO.GetAll;
+using Ecommerce.Repository.InformazioniDTO.Update;
+using Ecommerce.Repository.Listadeidesideri;
 using Ecommerce.Repository.Shoes;
 using Ecommerce.Repository.ShoesDTO;
 using Ecommerce.Repository.Warehouseman;
@@ -11,10 +14,16 @@ using Ecommerce.Service.Customer;
 using Ecommerce.Service.CustomerDTO;
 using Ecommerce.Service.DTOService;
 using Ecommerce.Service.InformazioniDTO;
+using Ecommerce.Service.InformazioniDTO.GetAll;
+using Ecommerce.Service.InformazioniDTO.Update;
+using Ecommerce.Service.Listadeidesideri;
 using Ecommerce.Service.SerivizioScarpa;
 using Ecommerce.Service.ServizoScarpa;
 using Ecommerce.Service.Warehouseman;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using System;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +62,17 @@ builder.Services.AddScoped<IClienteDTORepository, ClienteDTORepository>();
 builder.Services.AddScoped<IClienteDTOService, ClienteDTOService>();
 builder.Services.AddScoped<IDTORepository, DTORepository>();
 builder.Services.AddScoped<IDTOService, DTOService>();
+builder.Services.AddScoped<IDTOUpdateService, DTOUpdateService>();
+builder.Services.AddScoped<IDTOUpdateRepository, DTOUpdateRepository>();
+builder.Services.AddScoped<IDTOGetAllRepository, DTOGetAllRepository>();
+builder.Services.AddScoped<IDTOGetAllService, DTOGetAllService>();
+builder.Services.AddScoped<ILLDService, LLDService>();
+builder.Services.AddScoped<ILDDRepository, LDDRepository>();
+
+
+
+
+
 // CORS Configuration
 builder.Services.AddCors(options =>
 {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ecommerce.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Whislist : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -225,6 +225,26 @@ namespace Ecommerce.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "whislist",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ClienteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_whislist", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_whislist_cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "cliente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "rifornimento",
                 columns: table => new
                 {
@@ -425,6 +445,32 @@ namespace Ecommerce.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "ListaDesideriScarpa",
+                columns: table => new
+                {
+                    WhislistID = table.Column<int>(type: "int", nullable: false),
+                    ScarpaID = table.Column<int>(type: "int", nullable: false),
+                    Quantita = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ListaDesideriScarpa", x => new { x.WhislistID, x.ScarpaID });
+                    table.ForeignKey(
+                        name: "FK_ListaDesideriScarpa_scarpa_ScarpaID",
+                        column: x => x.ScarpaID,
+                        principalTable: "scarpa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ListaDesideriScarpa_whislist_WhislistID",
+                        column: x => x.WhislistID,
+                        principalTable: "whislist",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ordinescarpa",
                 columns: table => new
                 {
@@ -445,33 +491,6 @@ namespace Ecommerce.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ordinescarpa_scarpa_ScarpaId",
-                        column: x => x.ScarpaId,
-                        principalTable: "scarpa",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "whislist",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClienteId = table.Column<int>(type: "int", nullable: false),
-                    ScarpaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_whislist", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_whislist_cliente_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "cliente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_whislist_scarpa_ScarpaId",
                         column: x => x.ScarpaId,
                         principalTable: "scarpa",
                         principalColumn: "Id",
@@ -524,6 +543,11 @@ namespace Ecommerce.Migrations
                 name: "IX_dettagliscarpa_TagliaId",
                 table: "dettagliscarpa",
                 column: "TagliaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ListaDesideriScarpa_ScarpaID",
+                table: "ListaDesideriScarpa",
+                column: "ScarpaID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ordine_ClienteId",
@@ -583,12 +607,8 @@ namespace Ecommerce.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_whislist_ClienteId",
                 table: "whislist",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_whislist_ScarpaId",
-                table: "whislist",
-                column: "ScarpaId");
+                column: "ClienteId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -607,10 +627,10 @@ namespace Ecommerce.Migrations
                 name: "dettagliscarpa");
 
             migrationBuilder.DropTable(
-                name: "ordinescarpa");
+                name: "ListaDesideriScarpa");
 
             migrationBuilder.DropTable(
-                name: "whislist");
+                name: "ordinescarpa");
 
             migrationBuilder.DropTable(
                 name: "carrello");
@@ -620,6 +640,9 @@ namespace Ecommerce.Migrations
 
             migrationBuilder.DropTable(
                 name: "taglia");
+
+            migrationBuilder.DropTable(
+                name: "whislist");
 
             migrationBuilder.DropTable(
                 name: "ordine");

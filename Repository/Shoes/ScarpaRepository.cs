@@ -35,6 +35,8 @@ public class ScarpaRepository : IScarpaRepository
             .Include(s => s.Colore)
             .Include(s => s.DettagliScarpe)
             .FirstOrDefaultAsync(s => s.Id == id);
+
+        
     }
 
     // Add a new shoe
